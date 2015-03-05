@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Revo</string>
+    <string name="Messages">Messages</string>
+    <string name="new_event">New Event</string>
+    <string name="save">Save</string>
+    <string name="Event">Event</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <color name="gray_background">#383838</color>
+    <color name="gray_font">#dfdfdf</color>
+</resources>
