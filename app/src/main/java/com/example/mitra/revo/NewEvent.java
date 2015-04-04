@@ -1,11 +1,11 @@
 package com.example.mitra.revo;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,46 +15,57 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Mitra on 3/4/2015.
  */
 public class NewEvent extends ActionBarActivity {
     DataSource datasource;
+    private PendingIntent pendingIntent;
+    int hour, minute, mMonth, mYear, mDay;
+    Spinner spn_notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_event);
 
-        TextView txt_repeat = (TextView) findViewById(R.id.txt_repeat);
-        txt_repeat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dialog dialog = new Dialog(NewEvent.this);
-                dialog.setContentView(R.layout.repeat_list);
-                dialog.getWindow().setBackgroundDrawable
-                        (new ColorDrawable(android.graphics.Color.DKGRAY));
-                dialog.getWindow().setTitle("Repeat every");
-                ListView listView = (ListView) dialog.findViewById(R.id.listView);
-                String[] newsFeed = {"Every day", "Every week", "Every year"};
-                listView.setAdapter(new ArrayAdapter<String>(NewEvent.this, android.R.layout.simple_list_item_1, newsFeed));
-                dialog.show();
-            }
-        });
-        TextView txt_addnotification = (TextView) findViewById(R.id.txt_addnotification);
-        txt_addnotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        Spinner spn_catagory = (Spinner) findViewById(R.id.spn_catagory);
+        List<String> list = new ArrayList<>();
+        list.add("Meeting");
+        list.add("Courses");
+        list.add("Study Affairs");
+        list.add("Facebook events");
+        list.add("Others");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, list);
+        spn_catagory.setAdapter(dataAdapter);
 
-            }
-        });
+        Spinner spn_repeat = (Spinner) findViewById(R.id.spn_repeat);
+        List<String> list_repeat = new ArrayList<>();
+        list_repeat.add("Do not repeat");
+        list_repeat.add("Every day");
+        list_repeat.add("Every Week");
+        list_repeat.add("Every Month");
+        list_repeat.add("Every year");
+        ArrayAdapter<String> dataAdapter_repeat = new ArrayAdapter<String>(this, R.layout.spinner_repeat, list_repeat);
+        spn_repeat.setAdapter(dataAdapter_repeat);
+
+        spn_notification = (Spinner) findViewById(R.id.spn_notification);
+        List<String> list_notification = new ArrayList<>();
+        list_notification.add("Add notification");
+        list_notification.add("15 minutes before");
+        list_notification.add("30 minutes before");
+        list_notification.add("45 minutes before");
+        ArrayAdapter<String> dataAdapter_notification = new ArrayAdapter<String>(this, R.layout.spinner_repeat, list_notification);
+        spn_notification.setAdapter(dataAdapter_notification);
+
         final EditText edt_date_from = (EditText) findViewById(R.id.edt_date_from);
         edt_date_from.setOnClickListener(new View.OnClickListener() {
 
@@ -62,9 +73,9 @@ public class NewEvent extends ActionBarActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 final Calendar c = Calendar.getInstance();
-                int mYear = c.get(Calendar.YEAR);
-                int mMonth = c.get(Calendar.MONTH);
-                int mDay = c.get(Calendar.DAY_OF_MONTH);
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog DatePickerDialog1 = new DatePickerDialog(
                         NewEvent.this,
@@ -111,8 +122,8 @@ public class NewEvent extends ActionBarActivity {
             public void onClick(View v) {
 
                 Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
+                hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                minute = mcurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(NewEvent.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
@@ -160,17 +171,72 @@ public class NewEvent extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
-            String repeatType = ((TextView) findViewById(R.id.txt_repeat)).getText().toString();
-            String notificationIntervals = ((TextView) findViewById(R.id.txt_addnotification)).getText().toString();
+            String repeatType = String.valueOf(((Spinner) findViewById(R.id.spn_repeat)).getSelectedItemPosition());
+            String notificationIntervals = String.valueOf(((Spinner) findViewById(R.id.spn_notification)).getSelectedItemPosition());
             String dateFrom = ((EditText) findViewById(R.id.edt_date_from)).getText().toString();
             String dateTo = ((EditText) findViewById(R.id.edt_date_to)).getText().toString();
             String timeFrom = ((EditText) findViewById(R.id.edt_time_from)).getText().toString();
             String timeTo = ((EditText) findViewById(R.id.edt_time_to)).getText().toString();
-            String edt_map = ((EditText) findViewById(R.id.edt_map)).getText().toString();
+            String category = String.valueOf(((Spinner) findViewById(R.id.spn_catagory)).getSelectedItemPosition());
             String edt_title = ((EditText) findViewById(R.id.edt_title)).getText().toString();
             Save save = new Save();
             save.execute(repeatType, notificationIntervals, dateFrom, dateTo
-                    , timeFrom, timeTo, edt_map, edt_title,"0");
+                    , timeFrom, timeTo, category, edt_title, "0");
+
+            Intent intent=new Intent(this,Alarm.class);
+            pendingIntent = PendingIntent.getBroadcast(this, 0, intent,0);
+
+//            Intent intent = new Intent(this, Alarm.class);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 1253, intent, PendingIntent.FLAG_UPDATE_CURRENT | Intent.FILL_IN_DATA);
+
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.MONTH, mMonth);
+            cal.set(Calendar.YEAR, mYear);
+            cal.set(Calendar.DAY_OF_MONTH, mDay);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            if (spn_notification.getSelectedItemPosition() == 1) {
+                int interval = minute - 15;
+                if(interval<0)
+                {
+                    interval = 60-interval;
+                    hour = hour-1;
+                }
+                cal.set(Calendar.MINUTE, interval);
+                cal.set(Calendar.HOUR_OF_DAY, hour);
+                AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager1.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            } else if (spn_notification.getSelectedItemPosition() == 2) {
+                int interval = minute - 15;
+                if(interval<0)
+                {
+                    interval = 60-interval;
+                    hour = hour-1;
+                }
+                cal.set(Calendar.HOUR_OF_DAY, hour);
+                cal.set(Calendar.MINUTE, minute);
+                AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager1.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            } else if (spn_notification.getSelectedItemPosition() == 3) {
+                int interval = minute - 15;
+                if(interval<0)
+                {
+                    interval = 60-interval;
+                    hour = hour-1;
+                }
+                cal.set(Calendar.HOUR_OF_DAY, hour);
+                cal.set(Calendar.MINUTE, minute);
+                AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager1.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            }
+            else
+            {
+                cal.set(Calendar.HOUR_OF_DAY, hour);
+                cal.set(Calendar.MINUTE, minute);
+                AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager1.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            }
+
             return true;
         }
 
@@ -186,7 +252,7 @@ public class NewEvent extends ActionBarActivity {
             datasource = new DataSource(NewEvent.this);
             datasource.open();
             Message message = datasource.createMessage(params[0], params[1], params[2]
-                    , params[3], params[4], params[5], params[6], params[7], Integer.valueOf(params[8]));
+                    , params[3], params[4], params[5], Integer.valueOf(params[6]), params[7], Integer.valueOf(params[8]));
             datasource.close();
             return message;
         }
@@ -207,6 +273,7 @@ public class NewEvent extends ActionBarActivity {
                         "Saved",
                         Toast.LENGTH_LONG).show();
                 finish();
+
             } else {
                 Toast.makeText(NewEvent.this,
                         "Oops! The event Did not save", Toast.LENGTH_LONG)
@@ -215,6 +282,5 @@ public class NewEvent extends ActionBarActivity {
             progress.dismiss();
             super.onPostExecute(result);
         }
-
     }
 }

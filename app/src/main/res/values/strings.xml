@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Revo</string>
+    <string name="app_name">Memory helper</string>
     <string name="Messages">Messages</string>
     <string name="new_event">New Event</string>
     <string name="save">Save</string>
@@ -28,6 +28,11 @@
         <item>Setting</item>
         <item>Log out</item>
     </string-array>
+    <string-array name="repeat">
+        <item>Every week</item>
+        <item>Every day</item>
+        <item>Every year</item>
+    </string-array>
 
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
@@ -37,7 +42,13 @@
         <item>@drawable/ic_settings</item>
         <item>@drawable/ic_logout</item>
     </array>
-
+    <string-array name="category">
+        <item>Meeting</item>
+        <item>Courses</item>
+        <item>Study Affairs</item>
+        <item>Facebook events</item>
+        <item>Others</item>
+    </string-array>
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
     <string name="title_activity_main">MainActivity</string>

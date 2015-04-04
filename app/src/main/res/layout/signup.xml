@@ -56,28 +56,20 @@
                     android:id="@+id/btn_university"
                     android:layout_width="80dp"
                     android:layout_height="75dp"
-                    android:layout_gravity="left|center_vertical"
+                    android:layout_gravity="center"
                     android:background="@android:color/transparent"
                     android:scaleType="fitXY"
                     android:src="@drawable/unviersity" />
 
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="80dp"
-                    android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/email" />
+                <!--<ImageButton-->
+                    <!--android:id="@+id/imageButton2"-->
+                    <!--android:layout_width="80dp"-->
+                    <!--android:layout_height="75dp"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:src="@drawable/email" />-->
 
-                <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_width="80dp"
-                    android:layout_height="75dp"
-                    android:layout_gravity="right|center_vertical"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_facebook" />
             </FrameLayout>
 
             <TextView

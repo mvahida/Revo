@@ -32,7 +32,7 @@ public class DataSource {
     }
 
     public Message createMessage(String repeatType, String notificationIntervals, String dateFrom
-            , String dateTo, String timeFrom, String timeTo, String edt_type, String edt_title, int isimportant) {
+            , String dateTo, String timeFrom, String timeTo, int edt_type, String edt_title, int isimportant) {
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.xTitle, edt_title);
         values.put(DatabaseHelper.xDateFrom, dateFrom);

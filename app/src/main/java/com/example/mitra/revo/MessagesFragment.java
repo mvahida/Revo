@@ -18,6 +18,8 @@ import java.util.List;
 
 public class MessagesFragment extends Fragment {
     DataSource datasource;
+    CustomAdapter adapter;
+    View rootView;
 	public MessagesFragment(){}
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -28,8 +30,8 @@ public class MessagesFragment extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
- 
-        View rootView = inflater.inflate(R.layout.fragment_messages, container, false);
+
+        rootView = inflater.inflate(R.layout.fragment_messages, container, false);
         setHasOptionsMenu(true);
         datasource = new DataSource(getActivity());
         datasource.open();
@@ -38,16 +40,11 @@ public class MessagesFragment extends Fragment {
 
         // use the SimpleCursorAdapter to show the
         // elements in a ListView
-        ArrayAdapter<Message> adapter = new ArrayAdapter<Message>(getActivity(),
-                R.layout.messagesitem, R.id.txt_title ,values);
-        ListView lst_messages = (ListView)rootView.findViewById(R.id.lst_messages);
+        adapter = new CustomAdapter(getActivity(),
+                android.R.layout.simple_list_item_1,values, datasource,inflater);
+        final ListView lst_messages = (ListView)rootView.findViewById(R.id.lst_messages);
         lst_messages.setAdapter(adapter);
 
-        lst_messages.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "hello", Toast.LENGTH_SHORT).show();
-            }
-        });
         return rootView;
     }
     @Override
@@ -60,15 +57,25 @@ public class MessagesFragment extends Fragment {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_event) {
             Intent intent = new Intent(getActivity(), NewEvent.class);
-            startActivity(intent);
+            startActivityForResult(intent,1);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1) {
+            ListView lst_messages = (ListView)rootView.findViewById(R.id.lst_messages);
+            ((CustomAdapter)lst_messages.getAdapter()).notifyDataSetChanged();
+        }
+    }
+    @Override
     public void onResume() {
         datasource.open();
+        ListView lst_messages = (ListView)rootView.findViewById(R.id.lst_messages);
+        ((CustomAdapter)lst_messages.getAdapter()).notifyDataSetChanged();
         super.onResume();
     }
 
