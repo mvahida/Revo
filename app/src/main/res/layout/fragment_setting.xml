@@ -99,6 +99,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         >
+
         <TextView
             android:layout_width="0dp"
             android:layout_weight="2"
@@ -124,5 +125,20 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         >
-        </LinearLayout>
+
+        <!--<EditText-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/editText"-->
+            <!--android:textColor="@color/gray_font"-->
+            <!--android:textColorHint="@color/gray_font"-->
+            <!--android:hint="Put your lukkari link here"-->
+            <!--android:layout_weight="1"/>-->
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Setup Lukkari"
+            android:id="@+id/btn_lukkari"/>
+    </LinearLayout>
 </LinearLayout>

@@ -13,88 +13,91 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/app_name" />
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center"
-                android:paddingBottom="40dp"
-                android:text="&quot;Keeping your memory sharp can be easy.&quot;"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </FrameLayout>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/app_name" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="bottom"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:background="@android:color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="30dp">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-            <FrameLayout
+            <ImageView
+                android:id="@+id/signup_username_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/user26" />
+
+            <EditText
+                android:id="@+id/signup_username"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="20dp">
+                android:layout_height="wrap_content"
+                android:background="@drawable/editboxdark"
+                android:padding="5dp" />
+        </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/btn_university"
-                    android:layout_width="80dp"
-                    android:layout_height="75dp"
-                    android:layout_gravity="center"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/unviersity" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-                <!--<ImageButton-->
-                    <!--android:id="@+id/imageButton2"-->
-                    <!--android:layout_width="80dp"-->
-                    <!--android:layout_height="75dp"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:background="@android:color/transparent"-->
-                    <!--android:scaleType="fitXY"-->
-                    <!--android:src="@drawable/email" />-->
-
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/textView2"
+            <ImageView
+                android:id="@+id/signup_password_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top"
-                android:layout_marginTop="10dp"
-                android:text="Sign up with"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/gray_font" />
+                android:layout_marginRight="10dp"
+                android:src="@drawable/lock26" />
 
-            <TextView
-                android:id="@+id/textView3"
+            <EditText
+                android:id="@+id/signup_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/editboxdark"
+                android:padding="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/signup_confirm_password_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="10dp"
-                android:background="@color/gray_background"
-                android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="5dp"
-                android:text="Log in with an existed account"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </FrameLayout>
+                android:layout_marginRight="10dp"
+                android:src="@drawable/lock26" />
+
+            <EditText
+                android:id="@+id/signup_confirm_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/editboxdark"
+                android:padding="5dp" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Signup"
+            android:id="@+id/signup"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </LinearLayout>

@@ -44,7 +44,7 @@
                 android:src="@drawable/user26" />
 
             <EditText
-                android:id="@+id/editText7"
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/editboxdark"
@@ -65,7 +65,7 @@
                 android:src="@drawable/lock26" />
 
             <EditText
-                android:id="@+id/editText8"
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/editboxdark"
