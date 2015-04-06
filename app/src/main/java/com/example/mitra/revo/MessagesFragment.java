@@ -67,15 +67,19 @@ public class MessagesFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == 1) {
+            datasource.open();
             ListView lst_messages = (ListView)rootView.findViewById(R.id.lst_messages);
+            List<Message> values = datasource.getAllRecords();
+            adapter.clear();
+            adapter.addAll(values);
+            lst_messages.setAdapter(adapter);
             ((CustomAdapter)lst_messages.getAdapter()).notifyDataSetChanged();
+            datasource.close();
         }
     }
     @Override
     public void onResume() {
         datasource.open();
-        ListView lst_messages = (ListView)rootView.findViewById(R.id.lst_messages);
-        ((CustomAdapter)lst_messages.getAdapter()).notifyDataSetChanged();
         super.onResume();
     }
 

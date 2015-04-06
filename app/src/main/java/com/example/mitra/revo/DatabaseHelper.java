@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Calendar;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String Glb_Tb_Messages = "Glb_Tb_Messages";
@@ -45,6 +47,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
+
+        database.execSQL("INSERT INTO  Glb_Tb_Messages VALUES('1','Old messages are Shown here'" +
+                ",'20150405','20150405','10:05','11:05','0','0','1','1')");
+        database.execSQL("INSERT INTO  Glb_Tb_Messages VALUES('2','We filter them based on their date!'" +
+                ",'20150405','20150405','12:05','13:05','0','0','1','0')");
+        database.execSQL("INSERT INTO  Glb_Tb_Messages VALUES('3','You can see history of your messages!'" +
+                ",'20150405','20150405','14:05','15:05','0','0','1','1')");
+        database.execSQL("INSERT INTO  Glb_Tb_Messages VALUES('4','All old messages are here'" +
+                ",'20150405','20150405','16:05','17:05','0','0','1','0')");
+
+        database.execSQL("INSERT INTO  Glb_Tb_Messages VALUES('5','You have ACP metting today!'" +
+                ",'20150420','20160406','10:05','11:05','0','0','1','1')");
+        database.execSQL("INSERT INTO  Glb_Tb_Messages VALUES('6','You have to meet Mary!'" +
+                ",'20150420','20160406','12:05','13:05','0','0','1','0')");
+        database.execSQL("INSERT INTO  Glb_Tb_Messages VALUES('7','You have a to visit the doctor today!'" +
+                ",'20150420','20160406','14:05','15:05','0','0','1','1')");
+        database.execSQL("INSERT INTO  Glb_Tb_Messages VALUES('8','You have to buy milk!'" +
+                ",'20150420','20160406','16:05','17:05','0','0','1','0')");
     }
 
     @Override

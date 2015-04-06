@@ -7,6 +7,7 @@ import android.widget.TextView;
 public class ViewHolder {
 	TextView Title;
     ImageView img;
+    TextView date;
     //ImageButton imgb;
 	//TextView SubscriptionNo;
 }

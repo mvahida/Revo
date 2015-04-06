@@ -29,4 +29,18 @@
             android:text="You have ACP meeting today"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Date"
+            android:textColor="@color/gray_font"
+            android:id="@+id/txt_date"/>
+    </FrameLayout>
+
+
 </LinearLayout>

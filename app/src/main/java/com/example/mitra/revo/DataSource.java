@@ -1,6 +1,7 @@
 package com.example.mitra.revo;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -68,8 +69,43 @@ public class DataSource {
 
     public List<Message> getAllRecords() {
         List<Message> messages = new ArrayList<Message>();
+
+        Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        String newMonth = String.format("%02d", mMonth+1);
+        String newDay = String.format("%02d", mDay);
+        String currentDay = String.valueOf(mYear) +
+                String.valueOf(newMonth) + String.valueOf(newDay);
+
         Cursor cursor = database.query(DatabaseHelper.Glb_Tb_Messages,
-                allColumns, null, null, null, null, null);
+                allColumns, " Glb_Tb_Messages.xDateFrom >= " + currentDay, null, null, null
+                , " Glb_Tb_Messages.xDateFrom DESC ");
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Message record = cursorToMessage(cursor);
+            messages.add(record);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return messages;
+    }
+    public List<Message> getBaseHistory() {
+        List<Message> messages = new ArrayList<Message>();
+
+        Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        String newMonth = String.format("%02d", mMonth+1);
+        String newDay = String.format("%02d", mDay);
+        String currentDay = String.valueOf(mYear) +
+                String.valueOf(newMonth) + String.valueOf(newDay);
+        Cursor cursor = database.query(DatabaseHelper.Glb_Tb_Messages,
+                allColumns, " Glb_Tb_Messages.xDateFrom <  " + currentDay, null, null, null, " Glb_Tb_Messages.xDateFrom DESC ");
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
