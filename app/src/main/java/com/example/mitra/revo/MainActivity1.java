@@ -28,22 +28,11 @@ import java.util.Arrays;
 public class MainActivity1 extends Activity {
 
     TextView loginView;
+
     ImageButton uniLoginBtn;
+    ImageButton emailLoginBtn;
 
     String isLoggedIn = "";
-
-//    private LoginButton fbLoginBtn;
-    //private UiLifecycleHelper uiHelper;
-
-    /*Button btnRegId;
-    EditText etRegId;
-    GoogleCloudMessaging gcm;
-    String regid;
-    String PROJECT_NUMBER = "983456904439";*/
-
-//    CallbackManager callbackManager;
-//
-//    MainActivity obj = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,38 +41,6 @@ public class MainActivity1 extends Activity {
             finish();
             return;
         }
-
-//        FacebookSdk.sdkInitialize(getApplicationContext());
-//        callbackManager = CallbackManager.Factory.create();
-//
-//        LoginManager.getInstance().registerCallback(callbackManager,
-//                new FacebookCallback<LoginResult>() {
-//                    @Override
-//                    public void onSuccess(LoginResult loginResult) {
-//
-//
-//
-//                        Profile profile = Profile.getCurrentProfile();
-//
-//                        if(profile != null ){
-//                            Toast.makeText( getApplicationContext(), "not null", Toast.LENGTH_LONG ).show();
-//                        } else {
-//                            Toast.makeText( getApplicationContext(), "null", Toast.LENGTH_LONG ).show();
-//                        }
-//
-//                        //Toast.makeText( getApplicationContext(), "First Name is" + profile.getFirstName(), Toast.LENGTH_LONG ).show();
-//                    }
-//
-//                    @Override
-//                    public void onCancel() {
-//                        Toast.makeText( getApplicationContext(), "on cancel", Toast.LENGTH_LONG ).show();
-//                    }
-//
-//                    @Override
-//                    public void onError(FacebookException exception) {
-//                        Toast.makeText( getApplicationContext(), "on error", Toast.LENGTH_LONG ).show();
-//                    }
-//                });
 
         setContentView(R.layout.activity_main1);
 
@@ -94,16 +51,11 @@ public class MainActivity1 extends Activity {
         if( str.equals("1") ) {
             Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(mainIntent);
-        } else {
-            Toast.makeText(getApplicationContext(), "stuck to login activity", Toast.LENGTH_LONG).show();
         }
 
-        loginView   = (TextView) findViewById(R.id.login_existing_account);
-        uniLoginBtn = (ImageButton) findViewById(R.id.uniLoginBtn);
-//        fbLoginBtn  = (LoginButton) findViewById(R.id.fb_login_button);
-//        fbLoginBtn.setBackgroundResource(R.drawable.facebook);
-//        fbLoginBtn.setReadPermissions("user_friends");
-//        fbLoginBtn.setReadPermissions("public_profile");
+        loginView       = (TextView) findViewById(R.id.login_existing_account);
+        uniLoginBtn     = (ImageButton) findViewById(R.id.uniLoginBtn);
+        emailLoginBtn   = (ImageButton) findViewById(R.id.emailLoginBtn);
 
         loginView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,40 +73,14 @@ public class MainActivity1 extends Activity {
             }
         });
 
-//        fbLoginBtn.setOnClickListener( new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                LoginManager.getInstance().logInWithReadPermissions(obj, Arrays.asList("public_profile", "user_friends"));
-//            }
-//        });
-
+        emailLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signupIntent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(signupIntent);
+            }
+        });
     }
-
-    /*public void getRegId(){
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... params) {
-                String msg = "";
-                try {
-                    if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-                    }
-                    regid = gcm.register(PROJECT_NUMBER);
-                    msg = "Device registered, registration ID=" + regid;
-                    Log.i("GCM", msg);
-
-                } catch (IOException ex) {
-                    msg = "Error :" + ex.getMessage();
-                }
-                return msg;
-            }
-
-            @Override
-            protected void onPostExecute(String msg) {
-                etRegId.setText(msg + "\n");
-            }
-        }.execute(null, null, null);
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -205,6 +131,5 @@ public class MainActivity1 extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
