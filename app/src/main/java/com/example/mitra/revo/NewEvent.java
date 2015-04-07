@@ -216,6 +216,8 @@ public class NewEvent extends ActionBarActivity {
                     interval = 60-interval;
                     SelectedHour = SelectedHour-1;
                 }
+                cal.set(Calendar.HOUR_OF_DAY, SelectedHour);
+                cal.set(Calendar.MINUTE, interval);
             } else if (spn_notification.getSelectedItemPosition() == 2) {
                 int interval = SelectedMinute - 30;
                 if(interval<0)
@@ -223,6 +225,8 @@ public class NewEvent extends ActionBarActivity {
                     interval = 60-interval;
                     SelectedHour = SelectedHour-1;
                 }
+                cal.set(Calendar.HOUR_OF_DAY, SelectedHour);
+                cal.set(Calendar.MINUTE, interval);
             } else if (spn_notification.getSelectedItemPosition() == 3) {
                 int interval = SelectedMinute - 45;
                 if(interval<0)
@@ -230,18 +234,19 @@ public class NewEvent extends ActionBarActivity {
                     interval = 60-interval;
                     SelectedHour = SelectedHour-1;
                 }
+                cal.set(Calendar.HOUR_OF_DAY, SelectedHour);
+                cal.set(Calendar.MINUTE, interval);
             }
-
-            cal.set(Calendar.HOUR_OF_DAY, SelectedHour);
-            cal.set(Calendar.MINUTE, SelectedMinute);
-
+            else {
+                cal.set(Calendar.HOUR_OF_DAY, SelectedHour);
+                cal.set(Calendar.MINUTE, SelectedMinute);
+            }
 
             AlarmManager alarmMgr = (AlarmManager)getApplicationContext().getSystemService(getApplicationContext().ALARM_SERVICE);
             Intent intent = new Intent(getApplicationContext(), Alarm.class);
             PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
 
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-                    1000 * 60 * 20, alarmIntent);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmIntent);
 
             return true;
         }
