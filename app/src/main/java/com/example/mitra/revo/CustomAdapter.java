@@ -60,6 +60,7 @@ public class CustomAdapter extends ArrayAdapter<Message> {
 			view = vi.inflate(R.layout.messagesitem, null);
             viewHolder.Title = (TextView) view.findViewById(R.id.txt_title);
             viewHolder.img = (ImageView) view.findViewById(R.id.img_star);
+            viewHolder.date = (TextView) view.findViewById(R.id.txt_date);
             ImageView img_star = (ImageView) view.findViewById(R.id.img_star);
             TextView Title = (TextView) view.findViewById(R.id.txt_title);
             img_star.setTag("unchecked");
@@ -135,6 +136,10 @@ public class CustomAdapter extends ArrayAdapter<Message> {
         Message data = objects.get(position);
 		if (null != data) {
 			viewHolder.Title.setText(data.getTitle());
+            String year = data.getDateFrom().substring(0,4);
+            String month = data.getDateFrom().substring(4,6);
+            String day = data.getDateFrom().substring(6,8);
+            viewHolder.date.setText(day+"/"+month+"/"+year);
             if(data.getIsImportant() == 1)
             {
                 viewHolder.img.setImageDrawable(getContext().getResources().getDrawable(R.drawable.star26checked));

@@ -28,8 +28,9 @@ import java.util.List;
  */
 public class NewEvent extends ActionBarActivity {
     DataSource datasource;
+    String plaindatefrom,plaindateto;
     private PendingIntent pendingIntent;
-    int hour, minute, mMonth, mYear, mDay;
+    int SelectedHour, SelectedMinute, SelectedMonth, SelectedYear, SelectedDay;
     Spinner spn_notification;
 
     @Override
@@ -73,9 +74,9 @@ public class NewEvent extends ActionBarActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 final Calendar c = Calendar.getInstance();
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog DatePickerDialog1 = new DatePickerDialog(
                         NewEvent.this,
@@ -84,8 +85,15 @@ public class NewEvent extends ActionBarActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
+                                String newMonth = String.format("%02d", monthOfYear+1);
+                                String newDay = String.format("%02d", dayOfMonth);
                                 edt_date_from.setText(dayOfMonth + "/"
                                         + (monthOfYear + 1) + "/" + year);
+                                plaindatefrom = String.valueOf(year) + String.valueOf(newMonth)
+                                        + String.valueOf(newDay);
+                                SelectedDay = dayOfMonth;
+                                SelectedYear = year;
+                                SelectedMonth = monthOfYear;
                             }
                         }, mYear, mMonth, mDay);
                 DatePickerDialog1.show();
@@ -109,8 +117,12 @@ public class NewEvent extends ActionBarActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
+                                String newMonth = String.format("%02d", monthOfYear+1);
+                                String newDay = String.format("%02d", dayOfMonth);
                                 edt_date_to.setText(dayOfMonth + "/"
                                         + (monthOfYear + 1) + "/" + year);
+                                plaindateto = String.valueOf(year) + String.valueOf(newMonth)
+                                        + String.valueOf(newDay);
                             }
                         }, mYear, mMonth, mDay);
                 DatePickerDialog1.show();
@@ -122,13 +134,15 @@ public class NewEvent extends ActionBarActivity {
             public void onClick(View v) {
 
                 Calendar mcurrentTime = Calendar.getInstance();
-                hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                minute = mcurrentTime.get(Calendar.MINUTE);
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(NewEvent.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         edt_time_from.setText(selectedHour + ":" + selectedMinute);
+                        SelectedHour = selectedHour;
+                        SelectedMinute = selectedMinute;
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -173,73 +187,69 @@ public class NewEvent extends ActionBarActivity {
         if (id == R.id.action_save) {
             String repeatType = String.valueOf(((Spinner) findViewById(R.id.spn_repeat)).getSelectedItemPosition());
             String notificationIntervals = String.valueOf(((Spinner) findViewById(R.id.spn_notification)).getSelectedItemPosition());
-            String dateFrom = ((EditText) findViewById(R.id.edt_date_from)).getText().toString();
-            String dateTo = ((EditText) findViewById(R.id.edt_date_to)).getText().toString();
+//            String dateFrom = ((EditText) findViewById(R.id.edt_date_from)).getText().toString();
+//            String dateTo = ((EditText) findViewById(R.id.edt_date_to)).getText().toString();
             String timeFrom = ((EditText) findViewById(R.id.edt_time_from)).getText().toString();
             String timeTo = ((EditText) findViewById(R.id.edt_time_to)).getText().toString();
             String category = String.valueOf(((Spinner) findViewById(R.id.spn_catagory)).getSelectedItemPosition());
             String edt_title = ((EditText) findViewById(R.id.edt_title)).getText().toString();
+
+            if( edt_title.isEmpty() || timeFrom.isEmpty() || plaindatefrom.isEmpty())
+            {
+                Toast.makeText(getApplicationContext(),"You should enter Title,Time From and Date From",Toast.LENGTH_LONG).show();
+                return false;
+            }
+
             Save save = new Save();
-            save.execute(repeatType, notificationIntervals, dateFrom, dateTo
+            save.execute(repeatType, notificationIntervals, plaindatefrom, plaindateto
                     , timeFrom, timeTo, category, edt_title, "0");
 
-            Intent intent=new Intent(this,Alarm.class);
-            pendingIntent = PendingIntent.getBroadcast(this, 0, intent,0);
-
-//            Intent intent = new Intent(this, Alarm.class);
-//            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 1253, intent, PendingIntent.FLAG_UPDATE_CURRENT | Intent.FILL_IN_DATA);
-
             Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.MONTH, mMonth);
-            cal.set(Calendar.YEAR, mYear);
-            cal.set(Calendar.DAY_OF_MONTH, mDay);
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            cal.setTimeInMillis(System.currentTimeMillis());
+            cal.set(Calendar.MONTH, SelectedMonth);
+            cal.set(Calendar.YEAR, SelectedYear);
+            cal.set(Calendar.DAY_OF_MONTH, SelectedDay);
             if (spn_notification.getSelectedItemPosition() == 1) {
-                int interval = minute - 15;
+                int interval = SelectedMinute - 15;
                 if(interval<0)
                 {
                     interval = 60-interval;
-                    hour = hour-1;
+                    SelectedHour = SelectedHour-1;
                 }
+                cal.set(Calendar.HOUR_OF_DAY, SelectedHour);
                 cal.set(Calendar.MINUTE, interval);
-                cal.set(Calendar.HOUR_OF_DAY, hour);
-                AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
-                alarmManager1.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
             } else if (spn_notification.getSelectedItemPosition() == 2) {
-                int interval = minute - 15;
+                int interval = SelectedMinute - 30;
                 if(interval<0)
                 {
                     interval = 60-interval;
-                    hour = hour-1;
+                    SelectedHour = SelectedHour-1;
                 }
-                cal.set(Calendar.HOUR_OF_DAY, hour);
-                cal.set(Calendar.MINUTE, minute);
-                AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
-                alarmManager1.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+                cal.set(Calendar.HOUR_OF_DAY, SelectedHour);
+                cal.set(Calendar.MINUTE, interval);
             } else if (spn_notification.getSelectedItemPosition() == 3) {
-                int interval = minute - 15;
+                int interval = SelectedMinute - 45;
                 if(interval<0)
                 {
                     interval = 60-interval;
-                    hour = hour-1;
+                    SelectedHour = SelectedHour-1;
                 }
-                cal.set(Calendar.HOUR_OF_DAY, hour);
-                cal.set(Calendar.MINUTE, minute);
-                AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
-                alarmManager1.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+                cal.set(Calendar.HOUR_OF_DAY, SelectedHour);
+                cal.set(Calendar.MINUTE, interval);
             }
-            else
-            {
-                cal.set(Calendar.HOUR_OF_DAY, hour);
-                cal.set(Calendar.MINUTE, minute);
-                AlarmManager alarmManager1 = (AlarmManager) getSystemService(ALARM_SERVICE);
-                alarmManager1.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);
+            else {
+                cal.set(Calendar.HOUR_OF_DAY, SelectedHour);
+                cal.set(Calendar.MINUTE, SelectedMinute);
             }
+
+            AlarmManager alarmMgr = (AlarmManager)getApplicationContext().getSystemService(getApplicationContext().ALARM_SERVICE);
+            Intent intent = new Intent(getApplicationContext(), Alarm.class);
+            PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmIntent);
 
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
