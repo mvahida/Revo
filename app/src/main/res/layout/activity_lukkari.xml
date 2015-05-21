@@ -13,7 +13,12 @@
     <EditText
         android:id="@+id/text_lukkari"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btn_lukkari"
+        android:textColor="#ffffffff"
+        android:textColorHint="#ffffffff"
+        android:gravity="top"
+        android:hint="Paste the url here." />
 
     <Button
         android:id="@+id/btn_lukkari"

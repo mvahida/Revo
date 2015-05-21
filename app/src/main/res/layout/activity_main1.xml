@@ -31,7 +31,8 @@
                 android:layout_gravity="bottom|center"
                 android:paddingBottom="40dp"
                 android:text="&quot;Keeping your memory sharp can be easy.&quot;"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ff717171" />
         </FrameLayout>
     </LinearLayout>
 
@@ -50,7 +51,8 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="20dp">
+                android:padding="20dp"
+                android:id="@+id/nouse">
 
                 <ImageButton
                     android:id="@+id/uniLoginBtn"
@@ -65,7 +67,7 @@
                     android:id="@+id/emailLoginBtn"
                     android:layout_width="80dp"
                     android:layout_height="75dp"
-                    android:layout_gravity="right|center_vertical"
+                    android:layout_gravity="center"
                     android:background="@android:color/transparent"
                     android:scaleType="fitXY"
                     android:src="@drawable/email" />
@@ -81,14 +83,14 @@
                     <!--fb:logout_text=""-->
                     <!--/>-->
 
-                <!-- <ImageButton
+                <ImageButton
                      android:id="@+id/fb_login_button"
                      android:layout_width="80dp"
                      android:layout_height="75dp"
                      android:layout_gravity="right|center_vertical"
                      android:background="@android:color/transparent"
                      android:scaleType="fitXY"
-                     android:src="@drawable/facebook" />-->
+                     android:src="@drawable/facebook" />
             </FrameLayout>
 
             <TextView
@@ -99,7 +101,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Sign up with"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/gray_font" />
+                android:textColor="#ff000000" />
 
             <TextView
                 android:id="@+id/login_existing_account"
@@ -113,7 +115,8 @@
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
                 android:text="Log in with an existed account"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#ffffffff" />
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

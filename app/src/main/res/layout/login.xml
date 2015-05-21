@@ -48,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/editboxdark"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:hint="username" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,13 +71,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/editboxdark"
-                android:padding="5dp" />
+                android:padding="5dp"
+                android:hint="password" />
         </LinearLayout>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="Log in"
             android:id="@+id/Login"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
