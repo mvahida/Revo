@@ -5,6 +5,12 @@
     <ListView
         android:id="@+id/lst_messages"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawSelectorOnTop="false">
     </ListView>
+    <TextView android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No data"/>
     </LinearLayout>
