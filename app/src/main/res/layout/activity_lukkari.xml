@@ -10,21 +10,36 @@
         android:layout_height="wrap_content" />-->
 
 
-    <EditText
-        android:id="@+id/text_lukkari"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/btn_lukkari"
-        android:textColor="#ffffffff"
-        android:textColorHint="#ffffffff"
-        android:gravity="top"
-        android:hint="Paste the url here." />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_lukkari"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Setup Lukkari"
-        />
+        <TextView
+            android:layout_width="367dp"
+            android:layout_height="116dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Tips: 1. Go to https://login.oulu.fi/idp/Authn/RemoteUser 2. Click Additional Features on the bottom right corner; 3. Click Export calendar and copy the link; 4. Paste the link below and press SETUP LUKKARI button."
+            android:id="@+id/textView3"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:textColor="#ffffffff" />
+
+        <Button
+            android:id="@+id/btn_lukkari"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Setup Lukkari"
+            />
+
+        <EditText
+            android:id="@+id/text_lukkari"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="#ffffffff"
+            android:textColorHint="#ffffffff"
+            android:gravity="top"
+            android:hint="Paste the url here." />
+    </LinearLayout>
 
 </RelativeLayout>
