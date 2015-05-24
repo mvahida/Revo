@@ -87,7 +87,10 @@ public class NewEvent extends ActionBarActivity {
                                                   int monthOfYear, int dayOfMonth) {
                                 String newMonth = String.format("%02d", monthOfYear+1);
                                 String newDay = String.format("%02d", dayOfMonth);
+                                EditText edt_date_to = (EditText) findViewById(R.id.edt_date_to);
                                 edt_date_from.setText(dayOfMonth + "/"
+                                        + (monthOfYear + 1) + "/" + year);
+                                edt_date_to.setText(dayOfMonth + "/"
                                         + (monthOfYear + 1) + "/" + year);
                                 plaindatefrom = String.valueOf(year) + String.valueOf(newMonth)
                                         + String.valueOf(newDay);
