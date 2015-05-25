@@ -98,7 +98,7 @@
             android:id="@+id/btn_lukkari"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Setup Lukkari1"
+            android:text="Setup Lukkari"
             />
     </LinearLayout>
 
