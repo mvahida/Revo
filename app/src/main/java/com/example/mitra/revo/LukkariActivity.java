@@ -130,7 +130,7 @@ public class LukkariActivity extends ActionBarActivity {
 
     private void downloadComplete(){
         try {
-            Toast.makeText( getApplication(), str, Toast.LENGTH_LONG ).show();
+            Toast.makeText( getApplication(), "You have successfully setup your lukkari events.", Toast.LENGTH_LONG ).show();
         }
          catch (Exception e) {
             Log.d("Exception in download complete", e.getMessage());

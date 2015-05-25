@@ -55,8 +55,7 @@ public class NotificationActivity extends ActionBarActivity {
         }*/
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, data);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_layout, data);
 
         // Assign adapter to ListView
         listView.setAdapter(adapter);

@@ -16,30 +16,90 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="367dp"
-            android:layout_height="116dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Tips: 1. Go to https://login.oulu.fi/idp/Authn/RemoteUser 2. Click Additional Features on the bottom right corner; 3. Click Export calendar and copy the link; 4. Paste the link below and press SETUP LUKKARI button."
+            android:text="Instructions to Import Lukkari Data"
+            android:id="@+id/instructions_text_view"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:textColor="#ffffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="1. Login to https://lukkari.oulu.fi"
+            android:id="@+id/tip1_text_view"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:textColor="#ffffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="2. Click Additional Features on the bottom right corner."
+            android:id="@+id/tip2_text_view"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:textColor="#ffffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="3. Click Export calendar."
+            android:id="@+id/tip3_text_view"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:textColor="#ffffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="4. Click Enable iCalendar export."
+            android:id="@+id/tip4_text_view"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:textColor="#ffffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="5. Choose Start date and End date."
+            android:id="@+id/tip6_text_view"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:textColor="#ffffffff" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="6. Copy the generated url and paste below."
             android:id="@+id/textView3"
             android:linksClickable="true"
             android:autoLink="web"
             android:textColor="#ffffffff" />
 
-        <Button
-            android:id="@+id/btn_lukkari"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Setup Lukkari"
-            />
-
         <EditText
             android:id="@+id/text_lukkari"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:textColor="#ffffffff"
             android:textColorHint="#ffffffff"
             android:gravity="top"
             android:hint="Paste the url here." />
+
+        <Button
+            android:id="@+id/btn_lukkari"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Setup Lukkari1"
+            />
     </LinearLayout>
 
 </RelativeLayout>

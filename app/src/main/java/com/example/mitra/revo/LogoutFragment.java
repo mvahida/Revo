@@ -17,7 +17,7 @@ public class LogoutFragment extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        Intent intent = new Intent(LogoutFragment.this.getActivity(), MainActivity1.class);
+        Intent intent = new Intent(LogoutFragment.this.getActivity(), LoginActivity.class);
         LogoutFragment.this.startActivity(intent);
         View rootView = inflater.inflate(R.layout.fragment_logout, container, false);
         Toast toast = Toast.makeText(getActivity(), "You have logged out!", Toast.LENGTH_SHORT);
